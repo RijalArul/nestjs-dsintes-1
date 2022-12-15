@@ -1,11 +1,12 @@
 import { IsDefined } from "class-validator";
 import { Entity, ObjectID, ObjectIdColumn, Column } from "typeorm";
 import { Role } from "./users-role.enum";
+import { UserStatus } from "./users-status..enum";
 
 @Entity()
 export class User {
     @ObjectIdColumn()
-    id: ObjectID;
+    id: string;
 
     @Column({ unique: true })
     username: string
@@ -15,4 +16,8 @@ export class User {
 
     @Column()
     role: Role
+
+    @Column()
+    status: UserStatus
+
 }

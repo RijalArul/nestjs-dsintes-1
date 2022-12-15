@@ -1,7 +1,9 @@
 import { Module } from '@nestjs/common';
+import { APP_GUARD } from '@nestjs/core';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { RolesGuard } from './users/decorator-guard/roles.guard';
 import { UsersModule } from './users/users.module';
 
 @Module({
