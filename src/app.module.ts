@@ -5,6 +5,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { RolesGuard } from './users/decorator-guard/roles.guard';
 import { UsersModule } from './users/users.module';
+import { ProductsModule } from './products/products.module';
 
 @Module({
   imports: [UsersModule, TypeOrmModule.forRoot({
@@ -14,7 +15,7 @@ import { UsersModule } from './users/users.module';
     database: "nest-dsintes-1",
     autoLoadEntities: true,
     synchronize: true,
-  })],
+  }), ProductsModule],
   controllers: [AppController],
   providers: [AppService],
 })
