@@ -10,3 +10,13 @@ export function BodyProductResp(product: Product) {
     }
     return body
 }
+
+export function BodyUpdateProductResp(product: Product) {
+    const body = {
+        name: product.name,
+        image_url: product.image_url,
+    }
+    return body
+}
+
+

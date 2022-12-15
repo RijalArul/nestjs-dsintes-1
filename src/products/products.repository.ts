@@ -25,4 +25,40 @@ export class ProductsRepository {
         await this.productModel.save(newProduct)
         return newProduct
     }
+
+    async findAll(): Promise<Product[]> {
+        const products = await this.productModel.find({
+            relations: {
+                user: true
+            }
+        })
+
+        return products
+    }
+
+    async findByName(name: string): Promise<Product> {
+        const product = await this.productModel.findOne({
+            where: {
+                name: name
+            }
+        })
+
+        return product
+    }
+
+    async updateProduct(updateProductDto: CreateProductDTO, user: User, paramName: string): Promise<Product> {
+        const { name, image_url } = updateProductDto
+        const product = await this.findByName(paramName)
+        product.name = name
+        product.image_url = image_url
+        await this.productModel.update({ name: product.name, image_url: product.image_url }, { name: product.name })
+        return product
+    }
+
+    async deleteProduct(name: string): Promise<void> {
+        await this.findByName(name)
+        await this.productModel.delete({ name: name })
+
+        return
+    }
 }
