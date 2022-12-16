@@ -51,7 +51,7 @@ export class ProductsRepository {
         const product = await this.findByName(paramName)
         product.name = name
         product.image_url = image_url
-        await this.productModel.update({ name: product.name, image_url: product.image_url }, { name: product.name })
+        await this.productModel.update({ name: product.name }, { name: product.name, image_url: product.image_url })
         return product
     }
 
