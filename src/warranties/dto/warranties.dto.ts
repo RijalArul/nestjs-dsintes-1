@@ -14,7 +14,6 @@ export class CreateWarrantyDTO {
 }
 
 export class UpdateWarrantyDTO {
-
     @IsOptional()
     @IsEnum(WarrantyStatus, { each: true })
     status: string

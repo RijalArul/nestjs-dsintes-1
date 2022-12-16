@@ -4,7 +4,7 @@ import { Product } from 'src/products/entity/products.entitty';
 import { ProductsRepository } from 'src/products/products.repository';
 import { User } from 'src/users/entity/users.entity';
 import { Repository } from "typeorm"
-import { CreateWarrantyDTO } from './dto/warranties.dto';
+import { CreateWarrantyDTO, UpdateWarrantyDTO } from './dto/warranties.dto';
 import { Warranty } from './entity/warranties.entity';
 import { WarrantyRequest, WarrantyStatus } from './entity/warranties.enum';
 
@@ -28,5 +28,26 @@ export class WarrantiesRepository {
         })
         await this.warrantyModel.save(newWarrant)
         return newWarrant
+    }
+
+    async findAll(): Promise<Warranty[]> {
+        const warranties = await this.warrantyModel.find()
+        return warranties
+    }
+
+    async findByName(paramName: string): Promise<Warranty> {
+        return await this.warrantyModel.findOne({
+            where: {
+                name: paramName
+            }
+        })
+    }
+
+    async update(updateWarrantyDTO: UpdateWarrantyDTO, paramName: string): Promise<Warranty> {
+        const { status } = updateWarrantyDTO
+        const warrant = await this.findByName(paramName)
+        warrant.status = status === "accepted" ? WarrantyStatus.ACCEPTED : WarrantyStatus.REJECTED
+        await this.warrantyModel.update({ name: paramName }, { status: warrant.status })
+        return warrant
     }
 }
