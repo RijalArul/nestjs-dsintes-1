@@ -1,6 +1,7 @@
 
 import { User } from "src/users/entity/users.entity";
-import { Column, Entity, ManyToOne, ObjectIdColumn } from "typeorm";
+import { Warranty } from "src/warranties/entity/warranties.entity";
+import { Column, Entity, ManyToOne, ObjectIdColumn, OneToMany } from "typeorm";
 import { WarrantyStatus } from "./warranty.enum";
 
 @Entity()
@@ -16,4 +17,7 @@ export class Product {
 
     @ManyToOne(_type => User, user => user.products, { eager: false })
     user: User
+
+    @OneToMany(_type => Warranty, warranty => warranty.user, { eager: true })
+    warranties: Warranty[]
 }
