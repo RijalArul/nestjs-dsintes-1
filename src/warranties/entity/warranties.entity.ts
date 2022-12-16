@@ -9,6 +9,9 @@ export class Warranty {
     @ObjectIdColumn()
     id: string;
 
+    @Column({ unique: true })
+    name: string
+
     @Column()
     request: WarrantyRequest
 
